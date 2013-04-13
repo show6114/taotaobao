@@ -1,0 +1,297 @@
+/* --------------------------------------
+    RESET
+----------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* -------------------------------------------------------
+    GENERAL
+---------------------------------------------------------- */
+html { overflow-y: scroll; }
+body {
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 25px;
+    /*background:  url(../images/25-pixel-baseline.png) left top repeat,  url(../images/bg.png) left top repeat ;*/
+    /*text-shadow: 1px 1px 0 rgba(255, 255, 255, 1);*/
+}
+p { margin: 0.5em 0; }
+p.intro { font-size: 18px; }
+/* links */
+a:link, a:visited {
+    color: #0080ff;
+    text-decoration: none;
+    outline: 0;
+}
+a:hover, a:focus, a:active {
+    color: #80c0ff;
+}
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+}
+h1 {
+    font-size: 32px;
+    line-height: 45px;
+    letter-spacing: -0.9px;
+    margin-top: 12px 0;
+
+}
+h2 {
+    font-size: 22px;
+    line-height: 25px;
+    margin-top: 12px 0;
+}
+h3 {
+	text-align: center;
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 12px 0;
+}
+/* Lists */
+ul, ol {
+	margin-bottom: 25px;
+	padding: 0 20px;
+}
+ul { list-style: disc; }
+ol { list-style: decimal; }
+
+dl { margin-bottom: 25px; }
+dt {
+    font-weight: bold;
+    color: #046416;
+}
+dd {
+    padding-left: 20px;
+}
+
+blockquote {
+	margin: 25px 0;
+ 	padding-left: 40px;
+    padding-right: 30px;
+    background: url(../images/quote.png) no-repeat 3px 0;
+	font-weight: normal;
+	font-size: 18px;
+	font-style: italic;
+}
+input, select {
+    vertical-align: middle;
+}
+
+strong, b {
+    font-weight: bold; 
+}
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+mark {
+    background-color: #FDD2B3;
+}
+em {
+	color: #0080ff;
+}
+img {
+	vertical-align: -20%;
+}
+/* --------------------------------------
+	Structure
+----------------------------------------*/
+#outer-wrap {
+	margin: 0 auto;
+}
+#header-wrap {
+	width: 830px;
+	margin: 0 auto;
+	border-top: 5px solid #333;
+}
+#main-wrap {
+	width: 830px;
+	margin: 0 auto;
+}
+/* headerwrapper */
+#headerwrapper h1 {
+	margin-top: -24px;
+}
+/* contact me */
+#contact {
+	position: relative;
+	top: 0px;
+	left: 760px;
+	width: 50px;
+	text-align: center;
+	background-color: #333;
+	border: 1px solid #333;
+	border-top: 0px solid #333;
+	-webkit-border-bottom-left-radius: 5px 5px;
+	-webkit-border-bottom-right-radius: 5px 5px;
+}
+#contact a {
+	color: #fff;
+	text-decoration: underline;		
+}
+#contact a:hover {
+	text-decoration: none;		
+}
+/* text decoration  */
+.note {
+	color: #ff0080;
+}
+a.tip {
+	width: 12px;
+	padding:0 2px;
+	text-decoration: underline;
+}
+.addItemTable a.tip {
+	color: #ddd;
+}
+.displayItemTable a.tip {
+	color: #777;
+}
+.note a.tip{
+	color: #ff66c0;
+}
+/* add item list */
+#addItem {
+	width: 800px;
+	margin: 1em auto;
+	border: #bfbfbf solid 1px;
+	padding: 0.7em 1em;
+	background-color: #f2f2f2;
+	-webkit-border-bottom-left-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	-webkit-border-top-left-radius: 10px 10px;
+	-webkit-border-top-right-radius: 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+}
+table.addItemTable {
+    width: 780px;
+    text-align: center;
+    margin: 0 auto;
+    table-layout: fixed;    
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+}
+table.addItemTable th {
+	border: 1px solid black;
+	text-align: center;
+	color: #ffffff;
+	background-color: #9595f8;
+}
+
+table.addItemTable td {
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: gray;
+	-moz-border-radius: ;
+}
+table.addItemTable tfoot tr td{
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: gray;
+	background-color: #e6ffff;
+	-moz-border-radius: ;
+}
+
+/* display item list */
+#displayItem{ 
+	width: 800px;
+	margin: 1em auto;
+	border: #bfbfbf solid 1px;
+	padding: 0.7em 12px;
+	background-color: #f2f2f2;
+	-webkit-border-bottom-left-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	-webkit-border-top-left-radius: 10px 10px;
+	-webkit-border-top-right-radius: 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+}
+table.displayItemTable {
+    width: 780px;
+    text-align: center;
+    margin: 0 auto;
+    table-layout: fixed;    
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+}
+table.displayItemTable th {
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: gray;
+	background-color: #e6ffff;
+	-moz-border-radius: ;
+}
+table.displayItemTable td {
+    vertical-align: middle;
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: gray;
+	-moz-border-radius: ;
+}
+table.displayItemTable tfoot tr {
+	border: 1px solid black;
+}
+table.displayItemTable tfoot tr td{
+	text-align: center;
+	color: #ffffff;
+	background-color: #9595f8;
+}
+.removed-true {
+	text-decoration: line-through;
+	color: gray;
+}

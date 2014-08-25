@@ -4,7 +4,7 @@ angular.module('Taotaobao', [])
 
 		// initialization
 		$scope.currencyType = '人民幣';
-		$scope.currencyRate = 4.8;
+		$scope.currencyRate = 4.88;
 		$scope.unitPrice = 47;
 		$scope.shipping = 16;
 		$scope.purchases = [];

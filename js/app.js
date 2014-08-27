@@ -57,7 +57,7 @@ angular.module('Taotaobao', [])
 			hide: 0,
 			disabledSetUnitWeight: 1
 		}, {
-			name: '總運費(忽略重量或件數)',
+			name: '總運費（忽略重量或件數）',
 			value: 2,
 			hide: 0,
 			disabledSetUnitWeight: 1

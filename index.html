@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>淘淘看 3.0</title>
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,7 +30,17 @@
 		ga('send', 'pageview');
 	*/
 	</script>
-
+	<style>
+		.removed {
+			text-decoration: line-through;
+			color: gray;
+		}
+	.footer {
+		font-size: 0.9em;
+		border-top: thin #ccc solid;
+		padding-top: 1em;
+	}
+	</style>
 </head>
 <body ng-controller="Ctrl">
 
@@ -37,7 +48,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 page-header">
-				<h1>淘淘看 3.0 <small>淘寶網團購快速價格統計APP。</small></h1>
+				<h1>淘淘看 3.0 <small>團購快速價格統計 APP</small></h1>
 			</div>
 		</div>
 	</div>
@@ -48,35 +59,37 @@
 			<div class="col-sm-4">
 				<div class="panel panel-primary">
 				  <div class="panel-heading">
-				    <h2 class="panel-title">基本資訊</h2>
+				    <h2 class="panel-title"><span class="glyphicon glyphicon-edit"></span> 基本資訊</h2>
 				  </div>
 					<div class="panel-body">
 						<!-- input field -->
 						<form class="form" role="form">
 							<div class="form-group">
 						    <label for="currencyRate">人民幣對新台幣匯率</label>
-						    <p class="bg-success">{{currencyStatus}}</p>
 						    <input id="currencyRate" type="number" class="form-control" ng-model="currencyRate" ng-disabled="disabledSetCurrencyRate" placeholder="人民幣對新台幣匯率" required/>
 							</div>
 							<div class="form-group">
-								<button type="button" class="btn btn-primary btn-xs" ng-click="getCurrencyRate()">線上更新匯率</button>
+								<button type="button" class="btn btn-primary btn-xs" ng-click="getCurrencyRate()"><span class="glyphicon glyphicon-flash"></span> 線上更新匯率</button>
 								<label>
 									<input type="checkbox" ng-model="disabledSetCurrencyRate" ng-change="changeCurrencyType()" /> 使用新台幣計算
 								</label>
+						    <p class="bg-success">
+						    	<span ng-bind="currencyStatus"></span><abbr ng-show="showCurrencyTip" title="此匯率資訊由 Google&#0153; 提供">來源</abbr>
+						    </p>
 							</div>
 							<div class="form-group">
-								<label for="name">項目名稱</label>
+								<label for="name"><abbr title="提供辨示商品的名稱">項目名稱</abbr></label>
 								<input id="name" type="text" class="form-control" ng-model="name" ng-init="name='高領毛衣'" min='0'/>
 							</div>
 							<div class="form-group">
-								<label for="number">數量</label>
+								<label for="number"><abbr title="商品的數量，以件／個為單位">數量</abbr></label>
 								<div class="input-group">
 									<input id="number" type="number" class="form-control" ng-model="number" ng-init="number=1" min='0' required/>
 								  <span class="input-group-addon">件</span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="unitPrice">單價</label>
+								<label for="unitPrice"><abbr title="商品的單價，以{{currencyType}}計算">單價</abbr></label>
 								<div class="input-group">
 									<input id="unitPrice" type="number" class="form-control" ng-model="unitPrice" min='0' required/>
 									<span class="input-group-addon">{{currencyType}}</span>
@@ -90,25 +103,23 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="shippingMethod">運費計算</label>
+								<label for="shippingMethod">
+									<abbr title="「每公斤」：以每公斤花費多少{{currencyType}}的方式計算；「每件」：以每件花費多少{{currencyType}}的方式計算；「總運費(忽略重量或件數)」：不考慮商品數量或重量，直接採記計所有運費；「不考慮運費」：不計算運費。">
+										運費計算</abbr>
+								</label>
 								<select class="form-control" ng-model="shippingMethod" ng-options="i.name for i in shippingMethods"></select>
 								<div class="input-group" ng-hide="shippingMethod.hide">
 									<input type="number" class="form-control" ng-model="shipping" min='0' required/>
 								  <span class="input-group-addon">{{currencyType}}</span>
 								</div> <!-- ng-hide -->
 							</div> <!-- form-group -->
-							<dl class="dl-horizontal">
-								<dt>項目</dt>
-									<dd>{{name}}</dd>
-								<dt>商品</dt>
-									<dd style="font-family:monospace;">&nbsp;&nbsp{{price() | currency:"NTD$ "}}</dd>
-								<dt>運費</dt>
-									<dd style="font-family:monospace;">+ {{portage() | currency:"NTD$ "}}</dd>
-								<dt>價錢</dt>
-									<dd style="font-family:monospace;border-top: 1px solid #ccc;">= {{price() + portage() | currency:"NTD$ "}}</dd>
-							</dl>
+							<p>
+							項目：{{name}}<br/>
+							商品 <mark>{{price() | currency:"NTD "}}</mark> + 運費 <mark>{{portage() | currency:"NTD "}}</mark><br/>
+							= 價錢 <mark>{{price() + portage() | currency:"NTD "}}</mark>
+							</p>
 							<div class="form-group">
-								<button type="button" class="btn btn-primary btn-block" ng-click="addPurchase()">將資料加入表單</button>
+								<button type="button" class="btn btn-primary btn-block" ng-click="addPurchase()"><span class="glyphicon glyphicon-plus-sign"></span> 加入商品資訊列表</button>
 							</div>
 						</form>
 					</div> <!-- panel-body -->
@@ -117,10 +128,10 @@
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title">商品資訊列表</h2>
+						<h2 class="panel-title"><span class="glyphicon glyphicon-th-list"></span> 商品資訊列表</h2>
 					</div>
 					<div class="text-right">
-						<button type="button" class="btn btn-default btn-xs" ng-click="archive()">隱藏排除的項目</button>
+						<button type="button" class="btn btn-default btn-xs" ng-click="archive()"><span class="glyphicon glyphicon-remove"></span> 隱藏排除的項目</button>
 					</div>
 					<table class="table table-hover">
 						<thead>
@@ -128,23 +139,23 @@
 								<th>排除</th>
 								<th>編號</th>
 								<th>項目</th>
-								<th>價錢</th>
+								<th><abbr title="為「商品」與「運費」加總的結果">價錢</abbr></th>
 								<th>商品</th>
 								<th>運費</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="purchase in purchases" class="removed-{{purchase.removed}}">
+							<tr ng-repeat="purchase in purchases" ng-class="{removed: purchase.removed}">
 								<td><input type="checkbox" ng-model="purchase.removed"></td>
 								<td>{{$index+1}}</td>
 								<td>{{purchase.name}}</td>
-								<td>{{purchase.price + purchase.portage | currency:"NTD$ "}}</td>
-								<td>{{purchase.price | currency:"NTD$ "}}<br/>
-								（數量：{{purchase.number}}；單價：{{purchase.unitPrice | currency:"NTD $"}}）</td>
+								<td>{{purchase.price + purchase.portage | currency:"NTD "}}</td>
+								<td>{{purchase.price | currency:"NTD "}}<br/>
+									<small>（數量：{{purchase.number}}；單價：{{purchase.unitPrice | currency:"NTD "}}）</small></td>
 								<td>
-									{{purchase.portage | currency:"NTD$ "}}<br/>
-									（計算方式：{{purchase.shippingMethod.name}}
-									<span ng-hide="purchase.shippingMethod.value >= 2">{{purchase.shipping | currency:"NTD $"}}</span>
+									{{purchase.portage | currency:"NTD "}}<br/>
+									<small>（計算方式：{{purchase.shippingMethod.name}}</small>
+									<span ng-hide="purchase.shippingMethod.value >= 2"><small>{{purchase.shipping | currency:"NTD "}}</small></span>
 									）
 								</td>
 							</tr>
@@ -152,7 +163,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="6" class="info">
-									包含上述 {{remaining()}} 個項目，總價：{{priceSum()+portageSum() | currency:"NTD$ "}}（商品共：{{priceSum() | currency:"NTD$ "}}；運費共：{{portageSum() | currency:"NTD$ "}}；共 {{numberSum()}} 件商品）
+									包含上述 {{remaining()}} 個項目，總共：{{priceSum()+portageSum() | currency:"NTD "}}（商品共：{{priceSum() | currency:"NTD "}}；運費共：{{portageSum() | currency:"NTD "}}；共 {{numberSum()}} 件商品）
 								</td>
 							</tr>
 						</tfoot>
@@ -161,6 +172,15 @@
 			</div> <!-- col-sm-8 -->
 		</div> <!-- row -->
 	</div> <!-- container -->
+
+	<!-- Footer -->
+  <div class="container">
+		<div class="footer text-right text-muted">
+			<p class="pull-left">Older: <a target="_blank" href="older/v1/index.html">v1</a>, <a target="_blank" href="older/v2/index.html">v2</a></p>
+			2014 淘淘看；製作 林仔文（<a href="mailto:ttneywx_zwl@icloud.com">聯絡我</a>）<br/>
+			本網頁以 <a href="http://panic.com/coda/">Code 2</a> 編輯，介面技術採用 <a href="http://angularjs.org">AngularJS</a> 與 <a href="http://getbootstrap.com/">Bootstrap 3</a>
+		</div>
+  </div>
 
 </body>
 </html>

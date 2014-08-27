@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>淘淘看</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	line-height: 1.8em;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	font-size: 12px;
+}
+h3 {
+	text-align: center;
+	line-height: 2em;
+	font-size: small;
+	color: #4c4c4c;
+	margin: 0;
+}
+#outer_wrap {
+	max-height: 1200px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 800px;
+}
+#main_wrap {
+	width: 800px;
+}
+#info {
+	float: left;
+	position: static;
+	height: 220px;
+	width: 250px;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	border-color: #bfbfbf;
+	border-style: solid;
+	border-width: thin;
+	padding-left: 0.5em;
+	padding-bottom: 1em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	background-color: #f2f2f2;
+	-webkit-border-bottom-left-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	-webkit-border-top-left-radius: 10px 10px;
+	-webkit-border-top-right-radius: 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+}
+#info2{ line-height: 1.1em; width: 500px; height: 220px;text-align: left; float: right; display: inline; 
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	border-color: #bfbfbf;
+	border-style: solid;
+	border-width: thin;
+	padding-left: 0.5em;
+	padding-bottom: 1em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	-webkit-border-bottom-left-radius: 10px 10px;
+	-webkit-border-bottom-right-radius: 10px 10px;
+	-webkit-border-top-left-radius: 10px 10px;
+	-webkit-border-top-right-radius: 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+}
+#data {
+	margin: 0px;
+	border-color: #b3b3b3;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-style: dashed;
+	border-bottom-width: thin;
+	height: 200px;
+	width: auto;
+	overflow: scroll;
+}
+#data_action{ margin: 3px; }
+#foot_wrap{ padding-top: 2em; clear: both; display: block; }
+.exam {
+	color: #666;
+}
+.note {
+	color: #ff0080;
+	font-size: 12px;
+}
+.focus{color: #0080ff;}
+.total_price{ }
+</style>
+
+<script type="text/javascript">
+function selectText(inp) {
+	var obj=document.getElementById(inp);
+	obj.focus();
+	obj.select();
+}
+</script>
+
+</head>
+
+
+<body>
+
+<div id="outer_wrap"><!-- outer_wrap -->
+
+<div id="main_wrap"><!-- main wrap -->
+
+	<h1>淘淘看 1.0</h1>
+		<p class="note">把該輸入的資訊輸入，點選「計算」按鈕即可求出價格。底下提供網頁預覽功能以供對照，輸入完網址按「ENTER」鍵或旁邊的按鈕即可預覽。</p>
+	<form>
+	人民幣對新台幣匯率：<input type="text" id="rate" class="exam" size="10" value="4.7785" onClick="selectText(this.id)"/> <br/>
+	<div id="info">
+		<h3>基本資訊</h3>
+		數量：<input type="text" id="count" class="exam" size="10" value="1" onClick="selectText(this.id)"/><br/>
+		淨重：<input type="text" id="weight" class="exam" size="10" value="100" onClick="selectText(this.id)"/>公克<br/>
+		價格：<input type="text" id="cost" class="exam" size="10" value="47" onClick="selectText(this.id)"/>人民幣<br/>
+		運費：<input type="text" id="portage" class="exam" size="10" value="16" onClick="selectText(this.id)"/>人民幣/公斤<br/>
+		<input type="button" value="計算" id="calcCost" style="width:250px;" /> <span class="note" style="display:none;"> 計算完成…</span><br/>
+		商品價格 = <span id="costResult" class="focus">??</span> 新台幣<br/>
+		商品運費 = <span id="portageResult" class="focus">??</span> 新台幣 （共 <span id="weightResult" class="focus">??</span> 公斤）<br/>
+		總價 = <span id="totolCost" class="focus" >??</span> 新台幣 <br/>
+	</div>
+	<div id="info2">
+		<p id="data"></p>
+		<p id="data_action" style="display:none;">
+			<input type="text" id="row_num" class="exam" size="2" value="1" onClick="selectText(this.id)"/>
+			<input id="row_remove" type="button" value="刪除第 1 筆資料"/>
+			加總： <span id="total_price" class="focus"></span> 新台幣
+		</p>
+	</div>
+	</form>
+	
+<script type="text/javascript">
+// shows the process
+var ind = 1;
+$('#calcCost').click(function(){
+	var count = $('#count').val();
+	var cost = $('#cost').val();
+	var rate = $('#rate').val();
+	var weight = $('#weight').val();
+	var portage = $('#portage').val();
+	var costResult = cost * count * rate;
+	var weightResult = weight * count /1000;
+	var portageResult = weightResult * portage * rate;
+    $(this).next('span').css('display','inline').fadeOut(1000);
+    // display cost
+    $('#costResult').css('display','inline');
+    $('#costResult').html(costResult.toFixed(1));
+   	// display cost at portage
+    $('#portageResult').css('display','inline');
+	$('#portageResult').html(portageResult.toFixed(1));
+	// display weight
+    $('#weightResult').css('display','inline');
+	$('#weightResult').html(weightResult);
+	// display total cost
+	var totalCost = costResult + portageResult;
+    $('#totolCost').css('display','inline');
+	$('#totolCost').html(costResult.toFixed(1) + ' + ' + portageResult.toFixed(1) + ' = ' + totalCost.toFixed(1));
+	// display shop info on right side
+	dataName = 'data' + ind;
+	dataToDisp = '<p id="'+ dataName +'"> 第 '+ ind +' 筆：總價<strong class="total_price focus"> '+ totalCost.toFixed(1) + ' </strong>新台幣<br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp（共 '+count +' 個，單價 '+ cost +' 人民幣，單位重 '+ weight +' 公克，運費 '+ portage +' 人民幣/公斤）</p>';
+	$('#data').append(dataToDisp);
+	$('#data_action').show();
+	ind++;
+	// sum of total cost
+	var sum = 0;
+	if ( $('.total_price').length != 0 ) { 
+		$('.total_price').each(function(){
+			sum += parseFloat($(this).html());
+	    	$('#total_price').html(sum.toFixed(1));
+		});
+	} else {
+		$('#total_price').html( 0 );
+	};
+});
+// find the deleting row name
+$('#row_num').keyup(function() {
+	numToDelet = $('#row_num').val();
+	if ( numToDelet <= ind && numToDelet > 0) { 
+		$('#row_remove').attr('value', '刪除第 '+ numToDelet +' 筆資料' );
+	} else {
+		$('#row_num').attr('value', '無' );		
+	};
+});
+// remove a specified data
+$('#row_remove').click(function(){
+	dataIdToRemove = '#data' + $('#row_num').val();;
+	$(dataIdToRemove).remove();
+	// sum of total cost
+	var sum = 0;
+	if ( $('.total_price').length != 0 ) { 
+		$('.total_price').each(function(){
+			sum += parseFloat($(this).html());
+	    	$('#total_price').html(sum.toFixed(1));
+		});
+	} else {
+		$('#total_price').html( 0 );
+	};
+});
+</script>
+	
+</div><!-- end of main_wrap -->
+
+<div style="float:none;"></div>
+
+<div id="foot_wrap"><!-- footter wrap -->
+
+	<form>
+	商品網址： 
+	<input type="text" id="targetURL" class="exam" style="width:580px;" value="http://www.taobao.com/"/>
+	<input type="button" value="顯示網頁" id="showURL" /> <span class="note" style="display:none;">載入完畢！</span>
+	</form>
+	
+	<iframe id="targetPage" scrolling="yes" style="width:800px;height:480px;display:none;" src=""></iframe>
+	
+<script type="text/javascript">
+// show the webpage when 'enter' key type
+$('#targetURL').keypress(function(e) {
+	if (e.keyCode == '13') {
+		e.preventDefault();
+		$('#targetPage').attr("src", $('#targetURL').val());
+	    $('#targetPage').show();
+	   	$('#showURL').attr('value','載入中…');
+	};
+});
+// show the webpage using submit button
+$('#showURL').click(function(){
+	$('#targetPage').attr("src", $('#targetURL').val());
+    $('#targetPage').show();
+  	$('#showURL').attr('value','載入中…');
+});
+// show the iframe loading status
+$('#targetPage').load(function() {
+    $('#showURL').next('span').css('display','inline').fadeOut(2000);
+	$('#showURL').attr('value','顯示網頁');
+});
+</script>
+
+</div><!-- end of footter wrap -->
+
+</div><!-- end of outer_wrap -->
+
+</body>
+</html>

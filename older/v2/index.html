@@ -7,31 +7,20 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>淘淘看 2.2</title>    
+	<title>淘淘看 2.2</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-	
+
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
 	<script type="text/javascript" src="js/angular-ui.min.js"></script>
-	<script type="text/javascript" src="js/handler.js"></script>    
-	
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>                	
+	<script type="text/javascript" src="js/handler.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css"/>
-	<link rel="stylesheet" type="text/css" href="css/angular-ui.min.css"/>        
-	
+	<link rel="stylesheet" type="text/css" href="css/angular-ui.min.css"/>
+
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
-	
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		
-		ga('create', 'UA-45207212-1', 'site44.com');
-		ga('send', 'pageview');
-		
-	</script>
-	
+
 </head>
 <body ng-controller="Ctrl">
 	<div id="outer-wrap">
@@ -47,28 +36,28 @@
 				<h3>基本資訊</h3>
 				<div>
 					人民幣對新台幣匯率：<input type="number" ng-model="currencyRate" ng-disabled='disabledSetCurrencyRate' min='0' required/>
-					<input type="button" ng-click="getCurrencyRate()" ng-disabled='disabledSetCurrencyRate' value="線上更新匯率" /> 
+					<input type="button" ng-click="getCurrencyRate()" ng-disabled='disabledSetCurrencyRate' value="線上更新匯率" />
 					<span class="note">{{currencyStatus}}</span>
 					<span ng-show="showCurrencyTip" class="note" >[<a class="tip" title="此匯率資訊由 Google&#0153; 提供" ui-jq="tooltip">來源</a>]</span>
 					（使用新台幣計算<input type="checkbox" ng-model="disabledSetCurrencyRate" ng-change="changeCurrencyType()" />）
-				</div>	
+				</div>
 				<table class="addItemTable">
 					<thead>
 						<tr>
 							<th style="width: 135px;">項目名稱 [<a class="tip" title="提供辨示商品的名稱" ui-jq="tooltip">?</a>]</th>
 							<th style="width: 135px;">數量（件）[<a class="tip" title="商品的數量，以件／個為單位" ui-jq="tooltip">?</a>]</th>
-							<th style="width: 135px;">單價（{{currencyType}}）[<a class="tip" title="商品的單價，以{{currencyType}}計算" ui-jq="tooltip">?</a>]</th> 
-							<th style="width: 135px;">每件淨重（公克）[<a class="tip" title="每件商品的重量，以公克計算" ui-jq="tooltip">?</a>]</th> 
+							<th style="width: 135px;">單價（{{currencyType}}）[<a class="tip" title="商品的單價，以{{currencyType}}計算" ui-jq="tooltip">?</a>]</th>
+							<th style="width: 135px;">每件淨重（公克）[<a class="tip" title="每件商品的重量，以公克計算" ui-jq="tooltip">?</a>]</th>
 							<th>運費計算 [<a class="tip" title="運費的計算方法：<br/>
 							「每公斤」：以每公斤花費多少{{currencyType}}的方式計算；<br/>
 							「每件」：以每件花費多少{{currencyType}}的方式計算；<br/>
 							「總運費(忽略重量或件數)」：不考慮商品數量或重量，直接採記計所有運費；<br/>
-							「不考慮運費」：不計算運費。" ui-jq="tooltip">?</a>]</th>	
-						</tr>	
-					</thead>	
-					<tbody>									
+							「不考慮運費」：不計算運費。" ui-jq="tooltip">?</a>]</th>
+						</tr>
+					</thead>
+					<tbody>
 						<tr>
-							<td><input type="text" ng-model="name" min='0' ng-init="name='高領毛衣'" style="width:100px;"/></td>				
+							<td><input type="text" ng-model="name" min='0' ng-init="name='高領毛衣'" style="width:100px;"/></td>
 							<td><input type="number" ng-model="number" ng-init="number=1" min='0' style="width:100px;" required/></td>
 							<td><input type="number" ng-model="unitPrice" min='0' style="width:100px;" required/></td>
 							<td><input type="number" ng-model="unitWeight" ng-init="unitWeight=100" ng-disabled="shippingMethod.disabledSetUnitWeight" min='0' style="width:100px;" required/></td>
@@ -77,10 +66,10 @@
 								</select>
 								<div ng-hide="shippingMethod.hide">
 									<input type="number" ng-model="shipping" min='0' required/>{{currencyType}}
-								</div>								
-							</td>					
+								</div>
+							</td>
 					</tr>
-					</tbody>					
+					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="5">
@@ -88,13 +77,13 @@
 								價錢 <em>{{price() + portage() | currency:"NTD$ "}} </em> =
 								商品 <em>{{price() | currency:"NTD$ "}}</em> +
 								運費 <em>{{portage() | currency:"NTD$ "}}</em>
-							</td>	
+							</td>
 						</tr>
 					</tfoot>
 				</table>
 				<!-- submit -->
 				<div style="text-align: center;margin: 12px 0 0 0;">
-					<input type="button" ng-click="addPurchase()" value="↓  ↓  將資料加入表單  ↓  ↓" style="width:200px;font-size:13px;"/>				
+					<input type="button" ng-click="addPurchase()" value="↓  ↓  將資料加入表單  ↓  ↓" style="width:200px;font-size:13px;"/>
 				</div>
 			</div>
 			<div id="displayItem">
@@ -103,11 +92,11 @@
 				<table class="displayItemTable">
 					<thead>
 						<tr>
-							<th style="width:30px;">刪除</th>						
+							<th style="width:30px;">刪除</th>
 							<th style="width:30px;">編號</th>
 							<th style="width:90px;">項目名稱</th>
 							<th style="width:110px;">價錢 [<a class="tip" title="為右欄「商品」與「運費」加總的結果" ui-jq="tooltip">?</a>]</th>
-							<th>商品</th>								
+							<th>商品</th>
 							<th>運費</th>
 						</tr>
 					</thead>
@@ -116,17 +105,17 @@
 							<td><input type="checkbox" ng-model="purchase.removed"></td>
 							<td>{{$index+1}}</td>
 							<td>{{purchase.name}}</td>
-							<td>{{purchase.price + purchase.portage | currency:"NTD$ "}}</td>							
+							<td>{{purchase.price + purchase.portage | currency:"NTD$ "}}</td>
 							<td>{{purchase.price | currency:"NTD$ "}}<br/>
 							（數量：{{purchase.number}}；單價：{{purchase.unitPrice | currency:"NTD $"}}）</td>
 							<td>
 								{{purchase.portage | currency:"NTD$ "}}<br/>
-								（計算方式：{{purchase.shippingMethod.name}} 
+								（計算方式：{{purchase.shippingMethod.name}}
 								<span ng-hide="purchase.shippingMethod.value >= 2">{{purchase.shipping | currency:"NTD $"}}</span>
 								）
-							</td>	
+							</td>
 						</tr>
-					</tbody>							
+					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="6">

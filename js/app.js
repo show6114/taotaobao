@@ -11,18 +11,18 @@ angular.module('Taotaobao', [])
 
 		// automatically get currency rate
 		$scope.getCurrencyRate = function() {
-			var url = "http://rate-exchange.appspot.com/currency?callback=JSON_CALLBACK&from=CNY&to=TWD&q=1";
-			//var url="http://rate-exchange.appspot.com/currency?from=USD&to=EUR&q=1";
 			$http({
 				method: 'JSONP',
-				url: url
+				url: 'http://apilayer.net/api/live?access_key=225131e0a87bf7c13d5761bee7abe195'
 			})
 			.success(function(data, status) {
+				alert(data.quotes.USDAED);
 				$scope.currencyStatus = '更新完成！';
-				$scope.currencyRate = data.rate;
+				$scope.currencyRate = data;
 				$scope.showCurrencyTip = true;
 			})
 			.error(function(data, status) {
+				alert(data.quotes.USDAED);
 				$scope.currencyStatus = '更新失敗';
 				$scope.showCurrencyTip = false;
 			});

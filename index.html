@@ -69,7 +69,7 @@
 						    <input id="currencyRate" type="number" class="form-control" ng-model="currencyRate" ng-disabled="disabledSetCurrencyRate" placeholder="人民幣對新台幣匯率" required/>
 							</div>
 							<div class="form-group">
-								<button type="button" class="btn btn-primary btn-xs" ng-click="getCurrencyRate()"><span class="glyphicon glyphicon-flash"></span> 線上更新匯率</button>
+								<button type="button" class="btn btn-primary btn-xs disabled" ng-click="getCurrencyRate()"><span class="glyphicon glyphicon-flash"></span> 線上更新匯率</button>
 								<label>
 									<input type="checkbox" ng-model="disabledSetCurrencyRate" ng-change="changeCurrencyType()" /> 使用新台幣計算
 								</label>
@@ -176,8 +176,8 @@
 	<!-- Footer -->
   <div class="container">
 		<div class="footer text-right text-muted">
-			<p class="pull-left">Older: <a target="_blank" href="older/v1/index.html">v1</a>, <a target="_blank" href="older/v2/index.html">v2</a></p>
-			2014 淘淘看；製作 林仔文（<a href="mailto:ttneywx@icloud.com">聯絡我</a>）<br/>
+			<p class="pull-left">Older:  <a target="_blank" href="older/v2/index.html">v2</a>, <a target="_blank" href="older/v1/index.html">v1</a></p>
+			2015 淘淘看；製作 林仔文（<a href="https://github.com/show6114">聯絡我</a>）<br/>
 			本網頁以 <a href="http://panic.com/coda/">Code 2</a> 編輯，介面技術採用 <a href="http://angularjs.org">AngularJS</a> 與 <a href="http://getbootstrap.com/">Bootstrap 3</a>
 		</div>
   </div>
